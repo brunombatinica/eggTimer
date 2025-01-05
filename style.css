@@ -1,0 +1,103 @@
+
+/* selector {engagemnet block}
+selector - matches the element in html
+engagemnet block - the style rules that will be applied to the element
+
+Together this is a CSS rule
+
+Style sheet cascade - more specific rules override less specific rules
+Order of rules matter
+
+*/
+
+/* Reset or normalize style choices to keep things consistent */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+h1 {
+  text-align: center;
+  font-size: 4rem;
+  margin: 20px 0 0 0;
+}
+
+/* Basic body styling */
+body {
+  font-family: sans-serif; /* sets the font family to sans-serif */
+  background-color: #f0f0f0; /* sets the background color to a light gray */
+  padding: 20px; /* adds padding to the body */
+}
+
+/* Centering our timer container */
+.timer-container {
+    text-align: center;
+    background-color: #ffffff;
+    max-width: 500vw;
+    width: 50%;
+    margin: 40px auto 0 auto;
+    padding: 10px;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+    border: 1px solid #000000;
+}
+
+/* styling for input container */
+.timer-container__input {
+    display: flex;
+    flex-direction: row;
+    padding: 20px; /* adds padding to the input */
+    margin: 20px auto 20px auto; /* adds margin to the input - auto margins needed to allow centering */
+    max-width: 400px; /* sets the maximum width to 200px */
+    
+    font-size: 1.5rem; /* sets the font size to 1.5rem */
+
+    border: 1px solid #000000; /* adds a border to the input */
+    border-radius: 5px; /* adds a border radius to the input */
+}
+
+#time-input {
+    font-size: 1.5rem;
+    padding: 10px;
+    margin: 10px 50px 0px 20px; /* top, right, bottom, left */
+  }
+  
+
+/* styling for buttons*/
+.button {
+    margin: 5px;
+    font-size: 1rem;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 10px 5px 0 5px;
+}
+
+/* styling for buttons when hovered */
+.button:hover { 
+    cursor: pointer;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+#start-button {
+    background-color: green;
+}
+  
+#stop-button {
+  background-color: red;
+}
+
+
+/* The time display in large font */
+#timer-display {
+    font-size: 4rem;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+
+
+
+
+
