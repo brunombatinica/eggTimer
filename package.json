@@ -1,0 +1,25 @@
+{
+  "name": "eggtimer",
+  "version": "1.0.0",
+  "description": "Simple pomodoro timer for work",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunombatinica/eggTimer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunombatinica/eggTimer/issues"
+  },
+  "homepage": "https://github.com/brunombatinica/eggTimer#readme",
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-packager": "^17.1.2"
+  }
+}
