@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gh-pages -d src" // dh-pages package is used to deploy the application to github pages  - specifies the directory to deploy
+    "deploy": "gh-pages -d src"
   },
   "repository": {
     "type": "git",
