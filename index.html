@@ -1,0 +1,31 @@
+<!DOCTYPE html> <!-- declare the document type - helps browser understand how to interpret the document -->
+<html lang="en"> <!-- declare the language of the document helps with SEO and accessibility-->
+    <head> <!-- contains meta-information about the document -->
+        <meta charset="UTF-8"> <!-- character encoding -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- viewport meta-information about the document -->
+        <title>Egg Timer</title> <!-- title of the document -->
+        <link rel="stylesheet" href="style.css"> <!-- link to the CSS file -->
+    </head>
+    <body> <!-- contains the content of the document - what will be displayed in the main browser window -->
+        <h1>Egg Timer</h1> <!-- heading element - used to display a heading -->
+        
+        <!-- we apply a class so we can style it more easily in css -->
+        <div class="timer-container"> <!-- div (short for division) element - used to group elements --> 
+            <div class="timer-container__input">
+                <label for="time-input">Enter time (minutes)</label>
+                <input type="number" id="time-input" min="1" max="120" placeholder="20"> <!-- input element - used to create an input field -->
+            </div>
+
+            <div class="timer-container__buttons">
+                <button class="button" id="start-button">Start</button> <!-- button element - used to create a button -->
+                <button class="button" id="stop-button">Stop</button>
+                <button class="button" id="reset-button">Reset</button>
+            </div>
+        
+            <div id="timer-display">00:00</div>
+        </div>
+
+        <!-- link to the JavaScript file -->
+        <script src="script.js"></script> 
+    </body>
+</html>
