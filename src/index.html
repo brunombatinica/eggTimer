@@ -9,6 +9,9 @@
     <body> <!-- contains the content of the document - what will be displayed in the main browser window -->   
         <!-- we apply a class so we can style it more easily in css -->
         <div class="timer-container"> <!-- div (short for division) element - used to group elements --> 
+
+            <div class="timer-container__progress_background" id="progress-background"></div>
+
             <div class="timer-container__input">
                 <input class="timer-container__input-box" type="number" id="work" min="1" max="120" placeholder="Work"> <!-- input element - used to create an input field -->
                 <input class="timer-container__input-box" type="number" id="break" min="1" max="120" placeholder="Break"> 
@@ -24,7 +27,9 @@
             <div class="timer-container__display">
                 <div class="timer-container__display-time" id="timer-display">00:00</div>
                 <div class="timer-container__display-type" id="type-display"></div>
-                
+                <div class="timer-container__display-progress-bar-container">
+                    <div class="timer-container__display-progress-bar" id="progress-bar"></div>
+                </div>
             </div>
         </div>
 

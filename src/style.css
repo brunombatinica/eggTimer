@@ -34,11 +34,26 @@ body {
     background-color: #ffffff;
     width: clamp(200px, 50%, 500px);
     height: clamp(200px, 90%, 1000px);
-    margin: 0vw auto 0vw auto;
+    margin: 1vw auto 1vw auto;
     padding: 1vw;
-    border-radius: 8px;
+
+    background-color: rgb(255, 255, 255, 0);
+    
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
-    border: 1px solid #000000;
+    border: 0.3vw solid #000000;
+    border-radius: 1vw;
+    position: relative; /* so the child elements can be positioned absolutely - and will be relative to this container */
+}
+
+#progress-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 2px; /* just to stop cropping out of edges */
+    background-color: #ffffff;
 }
 
 /* styling for input container */
@@ -53,7 +68,7 @@ body {
     height: 6vw;
 
     border: 0px solid #000000; /* adds a border to the input */
-    border-radius: 5px; /* adds a border radius to the input */
+    border-radius: 1vw; /* adds a border radius to the input */
 }
 
 .timer-container__input-box {
@@ -62,8 +77,8 @@ body {
     text-align: center;
     margin: 0.5vw;
 
-    border: 1px solid #000000;
-    border-radius: 5px;
+    border: 0.2vw solid #000000;
+    border-radius: 1vw;
 }
 
 .timer-container__input-box::-webkit-inner-spin-button {
@@ -82,7 +97,7 @@ body {
     height: 6vw;
 
     border: 0px solid #000000;
-    border-radius: 5px;
+    border-radius: 1vw;
 }
   
 /* styling for buttons*/
@@ -95,6 +110,7 @@ body {
 
     border: 2px solid #000000;
     border-radius: 1vw;
+    z-index: 2;
 }
 
 /* styling for buttons when hovered */
@@ -106,6 +122,7 @@ body {
 
 #start {
     background-color: green;
+    color: #ffffff;
 }
   
 #stop {
@@ -120,6 +137,7 @@ body {
     text-align: center;
     width: 100%;
     padding: 0.5vw;
+    z-index: 2;
 }
 
 /* The time display in large font */
@@ -135,6 +153,22 @@ body {
     min-height: 2vw;
     line-height: 2vw;
 }
+
+.timer-container__display-progress-bar-container {
+    width: 100%;
+    height: 2vw;
+    background-color: #000000;
+}
+
+.timer-container__display-progress-bar {
+    width: 100%;
+    height: 100%;
+    background-color: #888888;
+    /* transition: width 1s linear;  */ /* transition for the progress bar - timing is kinda tricky so ignore for now*/
+}
+
+
+
 
 
 

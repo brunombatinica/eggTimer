@@ -5,20 +5,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetButton = document.querySelector('#reset');
     const timerDisplay = document.querySelector('#timer-display');
     const typeDisplay = document.querySelector('#type-display');
+    const progressBar = document.querySelector('#progress-bar');
+    const progressBackground = document.querySelector('#progress-background');
 
     let eggTimerIntervalID; // variable to store the interval/timer reference
-    let isTimerRunning = false; // variable to store the timer status
+    let isTimerRunning = false; // variable to store the timer status - has timer been started
+    let isTimerPaused = false; // variable to store the timer status - is it currently paused
     let placeHolderWorkTime = 5; // variable to store the placeholder time
     let placeHolderBreakTime = 2; // variable to store the placeholder time
     let placeHolderSessions = 2; // variable to store the placeholder time
     let timeLeftInSeconds; // variable to store the time left in seconds
     let sessionsLeft;
     let sessionType = "Work";
+    let totalTime;
 
     //main function to start the timer
     function startButtonPressed() {
-        if (isTimerRunning) {  //if the timer is already running no need to read time left in seconds just "create the interval" - restart the timer
+        if (isTimerRunning && !isTimerPaused) {  //if the timer is already running no need to read time left in seconds just "create the interval" - restart the timer
             // do nothing - will call set interval later
+        } else if (isTimerRunning && isTimerPaused) { //if the timer is paused, resume it
+            isTimerPaused = false;
+            startTimer();
         } else { //if the timer is not running, read in how much timer to run for
             beep();
             isTimerRunning = true;
@@ -29,18 +36,24 @@ document.addEventListener('DOMContentLoaded', function() {
             sessions = parseInt(document.getElementById('sessions').value) || placeHolderSessions;
 
             //get the time input value
-            timeLeftInSeconds = workTime; //parse the input value as an integer, if it's not a number, set it to 20
+            timeLeftInSeconds = workTime; 
+            totalTime = workTime;
             sessionsLeft = sessions;
-        }
-        //start the timer
-        startTimer(timeLeftInSeconds, sessionsLeft, sessionType);
+            sessionType = "Work";
+
+            //start the timer
+            startTimer();
+        } 
+        
     }
     
-    function startTimer(timeLeftInSeconds, sessionsLeft, sessionType) {
+    function startTimer() {
+        //updateDisplay();
+        
         //create an interval to update the display every second
         eggTimerIntervalID = setInterval(() => {  //setInterval is a built-in javascript function that takes a callback function and a delay in milliseconds
             //update the display
-            updateDisplay(timeLeftInSeconds, sessionsLeft, sessionType);
+            updateDisplay();
 
             //decrement the time left in seconds
             timeLeftInSeconds--;
@@ -55,13 +68,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         endOfInterval();
                         sessionType = "Break";
                         timeLeftInSeconds = breakTime;
-                        startTimer(timeLeftInSeconds, sessionsLeft, sessionType);
+                        totalTime = breakTime;
+                        startTimer();
                     } else {
                         // no break time, start new work session
                         sessionsLeft--;
                         if (sessionsLeft > 0) {
                             timeLeftInSeconds = workTime;
-                            startTimer(timeLeftInSeconds, sessionsLeft, sessionType);
+                            totalTime = workTime;
+                            startTimer();
                         } else {
                             // no more sessions left, stop the timer
                             endOfSessions();
@@ -73,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         endOfInterval();
                         sessionType = "Work";
                         timeLeftInSeconds = workTime;
-                        startTimer(timeLeftInSeconds, sessionsLeft, sessionType);
+                        totalTime = workTime;
+                        startTimer();
                     } else {
                         // no more sessions left, stop the timer
                         endOfSessions();
@@ -83,10 +99,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000); // 1000ms =  1s
     }
 
-    function updateDisplay(timeLeft, sessionsLeft, sessionType) {
+    function updateDisplay() {
         //calculate the minutes and seconds
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
+        const minutes = Math.floor(timeLeftInSeconds / 60);
+        const seconds = timeLeftInSeconds % 60;
 
         //format the minutes and seconds to ensure they are always 2 digits
         const formattedMinutes = minutes.toString().padStart(2, '0');
@@ -97,8 +113,18 @@ document.addEventListener('DOMContentLoaded', function() {
         typeDisplay.textContent = `${sessionType} - ${sessionsLeft} left`;
 
         //change the color of the display based on the session type
-        timerDisplay.style.color = sessionType === "Work" ? "#44aa44" : "#ff4444";
+        //timerDisplay.style.color = sessionType === "Work" ? "#ffffff" : "#000000";
+        timerDisplay.style.color = "#000000";
         typeDisplay.style.color = timerDisplay.style.color;
+
+        console.log(timeLeftInSeconds, totalTime);
+        //update the progress bar
+        progressBar.style.width = `${(timeLeftInSeconds / totalTime) * 100}%`;
+        progressBar.style.backgroundColor = sessionType === "Work" ? "#44aa44" : "#ff4444";
+
+        //update the progress background
+        progressBackground.style.width = `${(timeLeftInSeconds / totalTime) * 100}%`;
+        progressBackground.style.backgroundColor = sessionType === "Work" ? "#44aa44" : "#ff4444";
     }
 
     function beep() {
@@ -129,7 +155,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function endOfInterval(){
         await beep();
-        alert("")
+        // temporarily disable the transition for the progress bar
+        alert("");
+        progressBar.style.transition = "none"; // will be reset in the updateDisplay function
     }
 
     async function endOfSessions(){
@@ -146,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
     startButton.addEventListener('click', startButtonPressed);
 
     stopButton.addEventListener('click', () => {
+        isTimerPaused = true;
         clearInterval(eggTimerIntervalID); //cleart the interval = pause the timer but dont reset anything
     });
 
@@ -156,6 +185,9 @@ document.addEventListener('DOMContentLoaded', function() {
         timerDisplay.style.color = "#000000";
         typeDisplay.textContent = "";
         typeDisplay.style.color = "#000000";
+
+        progressBar.style.width = "100%";
+        progressBar.style.backgroundColor = "#000000";
     });
 
 
