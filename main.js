@@ -6,7 +6,9 @@ function createWindow() {
   // Create the browser window
   const mainWindow = new BrowserWindow({
     width: 600,
+    minWidth: 60,
     height: 400,
+    minHeight: 40,
     alwaysOnTop: true,
     webPreferences: {
       // This setting allows using certain Node APIs in the renderer
