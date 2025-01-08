@@ -9,8 +9,8 @@
     <body> <!-- contains the content of the document - what will be displayed in the main browser window -->   
         <!-- we apply a class so we can style it more easily in css -->
         <div class="timer-container"> <!-- div (short for division) element - used to group elements --> 
-
             <div class="timer-container__progress_background" id="progress-background"></div>
+            <div class="timer-container__progress_bar" id="progress-bar"></div>
 
             <div class="timer-container__input">
                 <input class="timer-container__input-box" type="number" id="work" min="1" max="120" placeholder="Work"> <!-- input element - used to create an input field -->
@@ -24,11 +24,13 @@
                 <button class="timer-container__buttons-button" id="reset">Reset</button>
             </div>
         
-            <div class="timer-container__display">
-                <div class="timer-container__display-time" id="timer-display">00:00</div>
-                <div class="timer-container__display-type" id="type-display"></div>
-                <div class="timer-container__display-progress-bar-container">
-                    <div class="timer-container__display-progress-bar" id="progress-bar"></div>
+            <div class="timer-container__display-time" id="timer-display">00:00</div>
+
+            <div class="timer-container__extras">
+                <div class="timer-container__extras-type" id="type-display" style="display: none;"></div> <!-- type display initially hidden -->
+                <div class="timer-container__extras-toggle-buttons" id="toggle-buttons">
+                    <button class="timer-container__extras-toggle-buttons-button" id="sound-on">Sound ON</button>
+                    <button class="timer-container__extras-toggle-buttons-button" id="prompts-on">Prompts ON</button>
                 </div>
             </div>
         </div>

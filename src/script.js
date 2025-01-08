@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetButton = document.querySelector('#reset');
     const timerDisplay = document.querySelector('#timer-display');
     const typeDisplay = document.querySelector('#type-display');
+    const toggleButtons = document.querySelector('#toggle-buttons');
     const progressBar = document.querySelector('#progress-bar');
-    const progressBackground = document.querySelector('#progress-background');
+    const soundToggleButton = document.querySelector('#sound-on');
+    const promptsToggleButton = document.querySelector('#prompts-on');
 
     let eggTimerIntervalID; // variable to store the interval/timer reference
     let isTimerRunning = false; // variable to store the timer status - has timer been started
@@ -16,8 +18,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let placeHolderSessions = 2; // variable to store the placeholder time
     let timeLeftInSeconds; // variable to store the time left in seconds
     let sessionsLeft;
-    let sessionType = "Work";
+    let sessionType = "";
     let totalTime;
+    let isSoundEnabled = true;
+    let isPromptsEnabled = true;
 
     //main function to start the timer
     function startButtonPressed() {
@@ -27,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isTimerPaused = false;
             startTimer();
         } else { //if the timer is not running, read in how much timer to run for
-            beep();
             isTimerRunning = true;
 
             //parse inputs and set defaults if missing
@@ -49,11 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function startTimer() {
         //updateDisplay();
-        
         //create an interval to update the display every second
         eggTimerIntervalID = setInterval(() => {  //setInterval is a built-in javascript function that takes a callback function and a delay in milliseconds
             //update the display
             updateDisplay();
+            //toggle the extras
+            typeDisplay.style.display = "block";
+            toggleButtons.style.display = "none";
 
             //decrement the time left in seconds
             timeLeftInSeconds--;
@@ -110,24 +115,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
         //update the display
         timerDisplay.textContent = `${formattedMinutes}:${formattedSeconds}`;
-        typeDisplay.textContent = `${sessionType} - ${sessionsLeft} left`;
+        typeDisplay.textContent = `${sessionType} - ${sessionsLeft}`;
 
         //change the color of the display based on the session type
         //timerDisplay.style.color = sessionType === "Work" ? "#ffffff" : "#000000";
         timerDisplay.style.color = "#000000";
         typeDisplay.style.color = timerDisplay.style.color;
 
-        console.log(timeLeftInSeconds, totalTime);
-        //update the progress bar
+        //update the progress background
         progressBar.style.width = `${(timeLeftInSeconds / totalTime) * 100}%`;
         progressBar.style.backgroundColor = sessionType === "Work" ? "#44aa44" : "#ff4444";
-
-        //update the progress background
-        progressBackground.style.width = `${(timeLeftInSeconds / totalTime) * 100}%`;
-        progressBackground.style.backgroundColor = sessionType === "Work" ? "#44aa44" : "#ff4444";
     }
 
     function beep() {
+        if (!isSoundEnabled) {
+            return;
+        }
         return new Promise((resolve) => {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
@@ -156,19 +159,23 @@ document.addEventListener('DOMContentLoaded', function() {
     async function endOfInterval(){
         await beep();
         // temporarily disable the transition for the progress bar
-        alert("");
-        progressBar.style.transition = "none"; // will be reset in the updateDisplay function
+        
+        if (isPromptsEnabled) {
+            alert("Break time!");
+        }
     }
 
     async function endOfSessions(){
         clearInterval(eggTimerIntervalID); //clear the interval - stop the timer 
         isTimerRunning = false; //reset the timer status
-        timerDisplay.textContent = "Time's up!";
+        timerDisplay.textContent = "DONE";
         typeDisplay.textContent = "";
         await beep();
         await beep();
         await beep();
-        alert("DONE!");
+        if (isPromptsEnabled) {
+            alert("DONE!");
+        }
     }
 
     startButton.addEventListener('click', startButtonPressed);
@@ -183,12 +190,30 @@ document.addEventListener('DOMContentLoaded', function() {
         isTimerRunning = false; //reset the timer status
         timerDisplay.textContent = "00:00";
         timerDisplay.style.color = "#000000";
-        typeDisplay.textContent = "";
-        typeDisplay.style.color = "#000000";
+
+        //toggle the extras
+        toggleButtons.style.display = "block";
+        typeDisplay.style.display = "none";
 
         progressBar.style.width = "100%";
-        progressBar.style.backgroundColor = "#000000";
+        progressBar.style.backgroundColor = "#ffffff";
     });
 
+    soundToggleButton.addEventListener('click', () => {
+        isSoundEnabled = !isSoundEnabled;
+        if (isSoundEnabled) {
+            soundToggleButton.textContent = "Sound ON";
+        } else {
+            soundToggleButton.textContent = "Sound OFF";
+        }
+    });
 
+    promptsToggleButton.addEventListener('click', () => {
+        isPromptsEnabled = !isPromptsEnabled;
+        if (isPromptsEnabled) {
+            promptsToggleButton.textContent = "Prompts ON";
+        } else {
+            promptsToggleButton.textContent = "Prompts OFF";
+        }
+    });
 });
