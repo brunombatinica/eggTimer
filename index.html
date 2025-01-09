@@ -6,23 +6,33 @@
         <title>Egg Timer</title> <!-- title of the document -->
         <link rel="stylesheet" href="style.css"> <!-- link to the CSS file -->
     </head>
-    <body> <!-- contains the content of the document - what will be displayed in the main browser window -->
-        <h1>Egg Timer</h1> <!-- heading element - used to display a heading -->
-        
+    <body> <!-- contains the content of the document - what will be displayed in the main browser window -->   
         <!-- we apply a class so we can style it more easily in css -->
         <div class="timer-container"> <!-- div (short for division) element - used to group elements --> 
+            <div class="timer-container__progress_background" id="progress-background"></div>
+            <div class="timer-container__progress_bar" id="progress-bar"></div>
+
             <div class="timer-container__input">
-                <label for="time-input">Enter time (minutes)</label>
-                <input type="number" id="time-input" min="1" max="120" placeholder="20"> <!-- input element - used to create an input field -->
+                <input class="timer-container__input-box" type="number" id="work" min="1" max="120" placeholder="Work"> <!-- input element - used to create an input field -->
+                <input class="timer-container__input-box" type="number" id="break" min="1" max="120" placeholder="Break"> 
+                <input class="timer-container__input-box" type="number" id="sessions" min="1" max="120" placeholder="Sessions"> 
             </div>
 
             <div class="timer-container__buttons">
-                <button class="button" id="start-button">Start</button> <!-- button element - used to create a button -->
-                <button class="button" id="stop-button">Stop</button>
-                <button class="button" id="reset-button">Reset</button>
+                <button class="timer-container__buttons-button" id="start">Start</button> <!-- button element - used to create a button -->
+                <button class="timer-container__buttons-button" id="stop">Stop</button>
+                <button class="timer-container__buttons-button" id="reset">Reset</button>
             </div>
         
-            <div id="timer-display">00:00</div>
+            <div class="timer-container__display-time" id="timer-display">00:00</div>
+
+            <div class="timer-container__extras">
+                <div class="timer-container__extras-type" id="type-display" style="display: none;"></div> <!-- type display initially hidden -->
+                <div class="timer-container__extras-toggle-buttons" id="toggle-buttons">
+                    <button class="timer-container__extras-toggle-buttons-button" id="sound-on">Sound ON</button>
+                    <button class="timer-container__extras-toggle-buttons-button" id="prompts-on">Prompts ON</button>
+                </div>
+            </div>
         </div>
 
         <!-- link to the JavaScript file -->
