@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let eggTimerIntervalID; // variable to store the interval/timer reference
     let isTimerRunning = false; // variable to store the timer status - has timer been started
     let isTimerPaused = false; // variable to store the timer status - is it currently paused
-    let placeHolderWorkTime = 5; // variable to store the placeholder time
-    let placeHolderBreakTime = 2; // variable to store the placeholder time
-    let placeHolderSessions = 2; // variable to store the placeholder time
+    let placeHolderWorkTime = 20*60; // variable to store the placeholder time
+    let placeHolderBreakTime = 5*60; // variable to store the placeholder time
+    let placeHolderSessions = 1; // variable to store the placeholder time
     let timeLeftInSeconds; // variable to store the time left in seconds
     let sessionsLeft;
     let sessionType = "";
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // temporarily disable the transition for the progress bar
         
         if (isPromptsEnabled) {
-            alert("Break time!");
+            alert("");
         }
     }
 
